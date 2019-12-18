@@ -1,22 +1,25 @@
 filename = "CCaseScene.unity"
-with open(filename, 'w') as f:
+
+subA = ("<<<<<<< Updated upstream\n")
+subB = ("=======\n")
+subC = (">>>>>>> Stashed changes\n")
+
+with open(filename, 'r+') as f:
   data = f.read()
-  subA = ("<<<<<<< Updated upstream\n")
-  subB = ("=======\n")
-  subC = (">>>>>>> Stashed changes\n")
-  print "Longitud: " + str(len(subA))
-  print "Longitud: " + str(len(subB))
-  print "Longitud: " + str(len(subC))
-  start = data.index(subA)
-  end = data.index(subB)
-  print start, end
-  newData = data[:start] + data[end:]
-  # resA = [i for i in range(len(data)) if data.startswith(subA, i)]
+  # Iterate starts
+  # while True:
+
+  # Find indexes
+  start, end = data.index(subA), data.index(subB)
+  # Slice string
+  data = data[:start] + data[end:]
+  data = data.replace(subB,"", 1).replace(subC,"", 1)
+  # Iterate ends
+  # if(data.find(subA) < 0)
+  #   break
   # return pointer to top of file so we can re-write the content with replaced string
   f.seek(0)
-  # clear file content
-  f.truncate()
   # re-write the content with the updated content
-  f.write(newData)
+  f.write(data)
   # close file
   f.close()
